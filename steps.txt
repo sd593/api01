@@ -1,0 +1,122 @@
+composer create-project laravel/laravel blog "5.2.*"
+
+
+
+
+
+//configure  routes
+routes.php
+
+
+
+
+//create controllers
+
+php artisan make:controller MeetingController --resource
+
+
+php artisan make:controller RegistrationController --resource
+
+
+
+php artisan make:controller AuthController --resource
+
+
+
+
+//remove csrf
+app-> providors -> RouteServiceProvider.php
+
+remove..
+'middleware' => 'web'
+
+
+
+
+//create model
+
+php artisan make:model Meeting -m (-m to create a migration file as well)
+
+php artisan make:migration create_meeting_user_table
+
+delete password reset migration
+
+
+
+
+jwt install
+===================================================
+
+//edit composer.json file
+ "require": {
+        "php": ">=5.5.9",
+        "laravel/framework": "5.2.*",
+        "tymon/jwt-auth": "0.5.*"
+    }
+
+
+
+//composer update
+
+
+//add providors
+app-> config -> app.php 
+'providers' => [
+        //jwt providor
+         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class
+]
+
+
+ 'aliases' => [
+    //jwt facades
+         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth ::class
+
+
+
+
+
+///php artisan vendor:publish
+
+
+
+---------------------------------------------------------------
+
+//php artisan jwt:generate
+
+
+
+//App-> config -> jwt.php (new file created)
+
+ 'ttl' => 60,
+ 'user' => 'App\User',
+
+
+
+//App-> http -> requests -> kernel.php
+
+
+        //jwt
+        'jwt.auth' => \Tymon\JWTAuth\Middleware\GetUserFromToken::class,
+
+    ];
+]
+
+---------------------------
+
+//use Tymon\JWTAuth\Exceptions\JWTException;
+//use JWTAuth;
+
+http://localhost:8000/api/v1/student/
+
+
+
+
+
+
+
+
+
+
+
+
+
